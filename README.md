@@ -1,118 +1,215 @@
 # POLYSOLVE
 
-Polynomial & calculas Calculator — a Java Swing desktop application built with a clean MVC (Model-View-Controller) architecture.
+### Polynomial & Calculus Calculator
 
-POLYSOLVE lets you type polynomials in natural form (e.g. `3x^2+2x+1`) and perform algebra (add, subtract, multiply) and calculus (evaluate, differentiate, integrate, definite integral) on them through a simple two-tab GUI.
+POLYSOLVE is a Java Swing desktop application for performing polynomial algebra and calculus operations through an intuitive graphical user interface. The application is designed using the **Model-View-Controller (MVC)** architecture to maintain a clean separation between mathematical logic, user interface, and application control.
+
+## ✨ Features
+
+### Algebra Operations
+- Addition of two polynomials
+- Subtraction of two polynomials
+- Multiplication of two polynomials
+
+### Calculus Operations
+- Evaluate a polynomial for a given value of `x`
+- Differentiate a polynomial
+- Calculate indefinite integrals
+- Calculate definite integrals over a specified interval
+
+### Input Support
+POLYSOLVE supports multiple polynomial input formats:
+
+```text
+3x^2 + 2x + 1
+x^3 - x
+3,2,1
 
 ---
+```
+The comma-separated format represents coefficients from the highest degree to the constant term.
 
-## Features
-
-- Algebra:- add, subtract, multiply two polynomials
-- Calculus:-
-  - Evaluate a polynomial at a given `x`
-  - Differentiate (`d/dx`)
-  - Indefinite integral (with a custom constant `C`)
-  - Definite integral over `[a, b]`
-- Accepts natural expressions (`3x^2+2x+1`) **or** comma-separated coefficients (`3,2,1`)
-- Friendly inline error messages for invalid input — no crashes
-- Clean, single-purpose classes following MVC separation
-
----
+User Experience
+Clean Java Swing graphical interface
+Separate Algebra and Calculus sections
+Input validation and user-friendly error messages
+Modular MVC-based architecture
+Reusable mathematical model classes
 
 ## Architecture (MVC)
 
 ```
-com.polysolve
-├── Main.java                     entry point
-├── model/
-│   ├── Polynomial.java           pure math: add, subtract, multiply,
-│   │                             evaluate, differentiate, integrate
-│   └── PolynomialParser.java     turns typed text into a Polynomial
-├── view/
-│   ├── MainFrame.java            top-level window, header + tabs
-│   ├── AlgebraPanel.java         add / subtract / multiply UI
-│   ├── CalculusPanel.java        evaluate / differentiate / integrate UI
-│   └── Theme.java                shared colors and fonts
-└── controller/
-    └── PolySolveController.java  mediates between View and Model
+                         POLYSOLVE
+                             │
+             ┌───────────────┼───────────────┐
+             │               │               │
+           Model          Controller         View
+             │               │               │
+       Polynomial.java       │          MainFrame.java
+       PolynomialParser.java │          AlgebraPanel.java
+                             │          CalculusPanel.java
+                             │          Theme.java
+                             │
+                     PolySolveController
 ```
+## Model
 
-### Design Principles
-
-- **Model** (`model/`) has zero Swing imports — it is pure, testable math logic.
-- **View** (`view/`) has zero math logic — it only builds UI and reads/writes text fields.
-- **Controller** (`controller/`) is the only class both sides depend on, keeping the two layers decoupled.
-
-See `docs/UML_Class_Diagram.png` for the full class relationship diagram.
-
----
-
-## Running the project
-
-### Option 1: Visual Studio Code (Recommended)
-
-1. Open **Visual Studio Code**.
-2. Select **File → Open Folder** and choose the `POLYSOLVE` directory.
-3. Ensure the **Extension Pack for Java** is installed. VS Code will automatically detect the `pom.xml` file and import the project as a Maven project.
-4. Open `Main.java` and click **Run** (or right-click → **Run Java**).
-
-
-### Option 2: Command line (with Maven)
-```bash
-mvn clean package
-java -jar target/polysolve.jar
+Responsible for polynomial representation and mathematical operations.
 ```
-
-### Option 3: Command line (plain javac, no Maven)
-```bash
-cd src/main/java
-javac com/polysolve/Main.java com/polysolve/model/*.java com/polysolve/view/*.java com/polysolve/controller/*.java -d ../../../out
-cd ../../../out
-java com.polysolve.Main
+model/
+├── Polynomial.java
+└── PolynomialParser.java
 ```
-
----
-
-## Input format
-
-| Style | Example | Meaning |
-|---|---|---|
-| Natural expression | `3x^2+2x+1` | 3x² + 2x + 1 |
-| Natural expression | `x^3-x` | x³ − x |
-| Comma-separated | `3,2,1` | 3x² + 2x + 1 (highest degree first) |
-
----
-
-## Authors
-
-- **Siddharth Chandra** (Reg. No. 12411518)
-- **Aman Raj** (Reg. No. 12416152)
-
-**B.Tech Computer Science & Engineering**  
-Lovely Professional University
-
----
-
-
-
-## Project Structure
-
-```text
-POLYSOLVE
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   └── resources/
-│   └── test/
+Polynomial.java handles polynomial operations such as addition, subtraction, multiplication, evaluation, differentiation, and integration.
+PolynomialParser.java converts user-entered polynomial expressions into polynomial objects.
+### View
+Responsible for the graphical user interface.
+```
+view/
+├── MainFrame.java
+├── AlgebraPanel.java
+├── CalculusPanel.java
+└── Theme.java
+```
+### Controller
+Connects the user interface with the mathematical model.
+```
+controller/
+└── PolySolveController.java
+```
+The controller processes user actions and coordinates communication between the Model and View layers.
+### 🛠️ Tech Stack
+```
+| Technology           | Purpose                                          |
+| -------------------- | ------------------------------------------------ |
+| **Java**             | Core application development                     |
+| **Java Swing**       | Desktop graphical user interface                 |
+| **Maven**            | Build and dependency management                  |
+| **MVC Architecture** | Application structure and separation of concerns |
+| **Git & GitHub**     | Version control and project hosting              |
+```
+### 📂 Project Structure
+```
+POLYSOLVEEE/
+│
 ├── docs/
+│   ├── Project_Report.docx
 │   └── UML_Class_Diagram.png
+│
+├── src/
+│   └── main/
+│       └── java/
+│           └── com/
+│               └── polysolve/
+│                   ├── Main.java
+│                   │
+│                   ├── controller/
+│                   │   └── PolySolveController.java
+│                   │
+│                   ├── model/
+│                   │   ├── Polynomial.java
+│                   │   └── PolynomialParser.java
+│                   │
+│                   └── view/
+│                       ├── AlgebraPanel.java
+│                       ├── CalculusPanel.java
+│                       ├── MainFrame.java
+│                       └── Theme.java
+│
+├── .gitignore
 ├── pom.xml
 └── README.md
+```
+### 🚀 Getting Started
+### Prerequisites
+Make sure the following are installed:
 
+Java JDK
+Apache Maven
+Git
+
+Verify Java:
+```
+java -version
+```
+Verify Maven:
+```
+mvn -version
+```
+Clone the Repository
+```
+git clone https://github.com/angelgali13/POLYSOLVEEE.git
+```
+Navigate into the project:
+```
+cd POLYSOLVEEE
 ```
 
+Build the Project
+```
+mvn clean install
+```
+Run the Application
+```
+mvn exec:java -Dexec.mainClass="com.polysolve.Main"
+```
 
-## License
+The POLYSOLVE desktop application will launch.
 
-Built as an academic coursework project. Free to reuse and extend for learning purposes.
+
+### 🧮 Example Operations
+Polynomial Addition
+```
+Polynomial A: 3x² + 2x + 1
+Polynomial B: 2x² + x + 4
+
+Result: 5x² + 3x + 5
+```
+Differentiation
+```
+Input: 3x² + 2x + 1
+
+Derivative: 6x + 2
+```
+Integration
+```
+Input: 3x² + 2x + 1
+
+Integral: x³ + x² + x + C
+```
+Evaluation
+```
+Input: 3x² + 2x + 1
+x = 2
+
+Result: 17
+```
+### 🎯 Project Objectives
+Implement polynomial algebra operations programmatically
+Implement fundamental calculus operations
+Build an interactive desktop application using Java Swing
+Apply MVC architecture in a real-world software project
+Practice object-oriented programming and modular software design
+Separate mathematical logic from presentation and user interaction
+### 💡 Key Concepts Demonstrated
+Object-Oriented Programming,
+
+MVC Design Pattern,
+
+Java Swing GUI Development,
+
+Polynomial Data Structures,
+
+Expression Parsing,
+
+Mathematical Computation,
+
+Event-Driven Programming,
+
+Modular Software Design,
+
+Input Validation,
+
+Maven Project Management,
+
+Git Version Control.
